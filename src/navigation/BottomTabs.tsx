@@ -3,12 +3,21 @@ import React from 'react';
 import HomeScreen from 'src/screens/Home.screen';
 import EmptyScreen from 'src/screens/Empty.screen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import BlurryBottomBar from 'src/navigation/BlurryBottomBar';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs: React.FC = () => {
   return (
-    <Tab.Navigator tabBarOptions={{showLabel: false}}>
+    <Tab.Navigator
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          backgroundColor: 'transparent',
+          elevation: 0,
+        },
+      }}
+      tabBar={BlurryBottomBar}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
