@@ -17,7 +17,7 @@ const BottomTabs: React.FC = () => {
             <Icon
               name={focused ? 'home' : 'home-outline'}
               size={size}
-              color={color}
+              color={focused ? 'white' : color}
             />
           ),
         }}
@@ -28,9 +28,9 @@ const BottomTabs: React.FC = () => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'people' : 'people-outline'}
               size={size}
-              color={color}
+              color={focused ? 'white' : color}
             />
           ),
         }}
@@ -41,9 +41,9 @@ const BottomTabs: React.FC = () => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'search' : 'search-outline'}
               size={size}
-              color={color}
+              color={focused ? 'white' : color}
             />
           ),
         }}
@@ -54,9 +54,9 @@ const BottomTabs: React.FC = () => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'library' : 'library-outline'}
               size={size}
-              color={color}
+              color={focused ? 'white' : color}
             />
           ),
         }}
@@ -67,9 +67,9 @@ const BottomTabs: React.FC = () => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'person' : 'person-outline'}
               size={size}
-              color={color}
+              color={focused ? 'white' : color}
             />
           ),
         }}
