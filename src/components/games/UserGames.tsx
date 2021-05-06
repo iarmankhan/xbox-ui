@@ -1,5 +1,6 @@
 import React from 'react';
 import {ImageBackground, ScrollView, StyleSheet, View} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
 
 interface UserGamesProps {
   games: any[];
@@ -15,8 +16,12 @@ const UserGames: React.FC<UserGamesProps> = ({games}) => {
         <View key={game.id} style={styles.game}>
           <ImageBackground
             source={{uri: game.screenshots[0]}}
-            style={styles.cover}
-          />
+            style={styles.cover}>
+            <LinearGradient
+              colors={['transparent', 'rgba(0, 0, 0, 0.6)']}
+              style={styles.overlay}
+            />
+          </ImageBackground>
         </View>
       ))}
     </ScrollView>
@@ -46,6 +51,9 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 6,
     overflow: 'hidden',
+  },
+  overlay: {
+    flex: 1,
   },
 });
 
