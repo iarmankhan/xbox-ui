@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React, {useRef} from 'react';
+import {Animated, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 
 interface UserGamesProps {
@@ -13,29 +7,59 @@ interface UserGamesProps {
 }
 
 const UserGames: React.FC<UserGamesProps> = ({games}) => {
+  const scroll = useRef(new Animated.Value(0)).current;
+
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.contentContainer}
-      decelerationRate="fast"
-      snapToInterval={300}
-      snapToAlignment="start">
-      {games.map(game => (
-        <View key={game.id} style={styles.game}>
-          <ImageBackground
-            source={{uri: game.screenshots[0]}}
-            style={styles.cover}>
-            <LinearGradient
-              colors={['transparent', 'rgba(0, 0, 0, 0.6)']}
-              style={styles.overlay}>
-              <Text style={styles.title}>{game.title}</Text>
-              <Text style={styles.editor}>{game.editor}</Text>
-            </LinearGradient>
-          </ImageBackground>
-        </View>
+    <>
+      {games.map((game, index) => (
+        <Animated.Image
+          key={game.id}
+          source={{uri: game.screenshots[0]}}
+          blurRadius={30}
+          style={[
+            styles.imageBackground,
+            {
+              opacity: scroll.interpolate({
+                inputRange: [(index - 1) * 300, index * 300, (index + 1) * 300],
+                outputRange: [0, 1, 0],
+              }),
+            },
+          ]}
+        />
       ))}
-    </ScrollView>
+
+      <LinearGradient
+        colors={['rgba(0, 0, 0, 0.3)', '#222']}
+        style={styles.bgGradient}
+      />
+
+      <Animated.ScrollView
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {x: scroll}}}],
+          {useNativeDriver: true},
+        )}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+        decelerationRate="fast"
+        snapToInterval={300}
+        snapToAlignment="start">
+        {games.map(game => (
+          <View key={game.id} style={styles.game}>
+            <ImageBackground
+              source={{uri: game.screenshots[0]}}
+              style={styles.cover}>
+              <LinearGradient
+                colors={['transparent', 'rgba(0, 0, 0, 0.6)']}
+                style={styles.overlay}>
+                <Text style={styles.title}>{game.title}</Text>
+                <Text style={styles.editor}>{game.editor}</Text>
+              </LinearGradient>
+            </ImageBackground>
+          </View>
+        ))}
+      </Animated.ScrollView>
+    </>
   );
 };
 
@@ -73,6 +97,21 @@ const styles = StyleSheet.create({
   title: {color: 'white', fontSize: 34},
   editor: {
     color: 'white',
+  },
+  imageBackground: {
+    position: 'absolute',
+    height: 400,
+    width: '100%',
+    zIndex: 0,
+    left: 0,
+    right: 0,
+  },
+  bgGradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 400,
   },
 });
 
