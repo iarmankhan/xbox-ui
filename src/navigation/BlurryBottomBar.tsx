@@ -1,20 +1,14 @@
 import React from 'react';
-import {BlurView} from '@react-native-community/blur';
+import {BlurView} from 'expo-blur';
 import {BottomTabBar} from '@react-navigation/bottom-tabs';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs/src/types';
 import {StyleSheet} from 'react-native';
 
 interface BlurryBottomBarProps extends BottomTabBarProps {}
 
-// @todo find blur fix for android as well
-
 const BlurryBottomBar: React.FC<BlurryBottomBarProps> = props => {
   return (
-    <BlurView
-      blurAmount={100}
-      overlayColor=""
-      blurType="dark"
-      style={styles.root}>
+    <BlurView intensity={100} tint="dark" style={styles.root}>
       <BottomTabBar {...props} />
     </BlurView>
   );

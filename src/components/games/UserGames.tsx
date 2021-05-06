@@ -1,5 +1,11 @@
 import React from 'react';
-import {ImageBackground, ScrollView, StyleSheet, View} from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 
 interface UserGamesProps {
@@ -11,7 +17,10 @@ const UserGames: React.FC<UserGamesProps> = ({games}) => {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.contentContainer}>
+      contentContainerStyle={styles.contentContainer}
+      decelerationRate="fast"
+      snapToInterval={300}
+      snapToAlignment="start">
       {games.map(game => (
         <View key={game.id} style={styles.game}>
           <ImageBackground
@@ -19,8 +28,10 @@ const UserGames: React.FC<UserGamesProps> = ({games}) => {
             style={styles.cover}>
             <LinearGradient
               colors={['transparent', 'rgba(0, 0, 0, 0.6)']}
-              style={styles.overlay}
-            />
+              style={styles.overlay}>
+              <Text style={styles.title}>{game.title}</Text>
+              <Text style={styles.editor}>{game.editor}</Text>
+            </LinearGradient>
           </ImageBackground>
         </View>
       ))}
@@ -54,6 +65,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    justifyContent: 'flex-end',
+    paddingBottom: 50,
+    paddingHorizontal: 15,
+  },
+  title: {color: 'white', fontSize: 34},
+  editor: {
+    color: 'white',
   },
 });
 
